@@ -1,12 +1,23 @@
-import 'package:app7/screens/filters_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import '../dummy_data.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-class MealDetailScreen extends StatelessWidget {
+class MealDetailScreen extends StatefulWidget {
   static const routeName = '/meal-detail';
+  final Function toggleFavorite;
+  final Function isFavorite;
 
-  const MealDetailScreen({Key? key}) : super(key: key);
+  const MealDetailScreen(
+      {Key? key, required this.toggleFavorite, required this.isFavorite})
+      : super(key: key);
+
+  @override
+  State<MealDetailScreen> createState() => _MealDetailScreenState();
+}
+
+class _MealDetailScreenState extends State<MealDetailScreen> {
+  var _favorite = false;
 
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
@@ -33,9 +44,16 @@ class MealDetailScreen extends StatelessWidget {
     );
   }
 
+  void _isfavorite() {
+    setState(() {
+      _favorite = !_favorite;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final mealId = ModalRoute.of(context)!.settings.arguments as String;
+    _favorite = widget.isFavorite(mealId) ? true : false;
     final selectdMeal = DUMMY_MEALS.firstWhere(
       (meal) => mealId == meal.id,
     );
@@ -88,11 +106,6 @@ class MealDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //     child: Icon(Icons.delete),
-      //     onPressed: () {
-      //       Navigator.of(context).pop(mealId);
-      //     }),
       floatingActionButton: SpeedDial(
         animatedIcon: AnimatedIcons.menu_close,
         spacing: 10,
@@ -107,10 +120,17 @@ class MealDetailScreen extends StatelessWidget {
             },
           ),
           SpeedDialChild(
-            backgroundColor: Colors.white,
-            child: const Icon(Icons.favorite_border_outlined),
+            backgroundColor: widget.isFavorite(mealId) || _favorite
+                ? Colors.redAccent
+                : Colors.white,
+            child: Icon(widget.isFavorite(mealId) || _favorite
+                ? Icons.favorite
+                : Icons.favorite_border),
             label: 'Favorite',
-            onTap: () => false,
+            onTap: () {
+              widget.toggleFavorite(mealId);
+              _isfavorite();
+            },
           ),
           SpeedDialChild(
             backgroundColor: Colors.white,
