@@ -31,8 +31,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _filters = filterData;
       _availableMeals = DUMMY_MEALS.where((meal) {
-        final gluten = (_filters['gluten'])!;
-        if (gluten && !meal.isGlutenFree) {
+        if ((_filters['gluten'])! && !meal.isGlutenFree) {
           return false;
         }
         if ((_filters['lactose'])! && !meal.isLactoseFree) {

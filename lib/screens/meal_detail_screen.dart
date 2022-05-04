@@ -1,5 +1,7 @@
+import 'package:app7/screens/filters_screen.dart';
 import 'package:flutter/material.dart';
 import '../dummy_data.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-detail';
@@ -86,11 +88,40 @@ class MealDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.delete),
-          onPressed: () {
-            Navigator.of(context).pop(mealId);
-          }),
+      // floatingActionButton: FloatingActionButton(
+      //     child: Icon(Icons.delete),
+      //     onPressed: () {
+      //       Navigator.of(context).pop(mealId);
+      //     }),
+      floatingActionButton: SpeedDial(
+        animatedIcon: AnimatedIcons.menu_close,
+        spacing: 10,
+        spaceBetweenChildren: 10,
+        children: [
+          SpeedDialChild(
+            backgroundColor: Colors.redAccent,
+            child: const Icon(Icons.delete),
+            label: 'Delete',
+            onTap: () {
+              Navigator.of(context).pop(mealId);
+            },
+          ),
+          SpeedDialChild(
+            backgroundColor: Colors.white,
+            child: const Icon(Icons.favorite_border_outlined),
+            label: 'Favorite',
+            onTap: () => false,
+          ),
+          SpeedDialChild(
+            backgroundColor: Colors.white,
+            child: const Icon(Icons.keyboard_return),
+            label: 'Categories',
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed('/');
+            },
+          ),
+        ],
+      ),
     );
   }
 }

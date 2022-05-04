@@ -92,13 +92,13 @@ class MealItem extends StatelessWidget {
                 child: Container(
                   width: 300,
                   color: Colors.black54,
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     vertical: 5,
                     horizontal: 20,
                   ),
                   child: Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 26,
                       color: Colors.white,
                     ),
@@ -110,28 +110,28 @@ class MealItem extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Icon(Icons.schedule),
-                    SizedBox(width: 5),
+                    const Icon(Icons.schedule),
+                    const SizedBox(width: 5),
                     Text('$duration min'),
                   ],
                 ),
                 Row(
                   children: <Widget>[
-                    Icon(Icons.settings),
-                    SizedBox(width: 5),
+                    const Icon(Icons.settings),
+                    const SizedBox(width: 5),
                     Text(complexityText),
                   ],
                 ),
                 Row(
                   children: <Widget>[
-                    Icon(Icons.attach_money),
-                    SizedBox(width: 5),
+                    const Icon(Icons.attach_money),
+                    const SizedBox(width: 5),
                     Text(affordabilityText),
                   ],
                 ),
